@@ -16,7 +16,11 @@ class Book extends Component {
                 className="book-cover-image"
               />
             </div>
-            <BookShelfMenuChanger whichShelfThisBookBelongsTo={book.shelf} />
+            <BookShelfMenuChanger
+              book={book}
+              whichShelfThisBookBelongsTo={book.shelf}
+              handleMovingBook={this.props.handleMovingBook}
+            />
           </div>
           <div className="book-title">{book.title}</div>
           {book.authors.map(author => (

@@ -2,10 +2,22 @@ import React, { Component } from "react";
 
 class BookShelfMenuChanger extends Component {
   state = {};
+
+  /*
+   * Handles moving the book by calling the function passed
+   * from the parten App component
+   */
+  movingBookToAnotherShelf = event => {
+    this.props.handleMovingBook(this.props.book, event.target.value);
+  };
+
   render() {
     return (
       <div className="book-shelf-changer">
-        <select value={this.props.whichShelfThisBookBelongsTo}>
+        <select
+          value={this.props.whichShelfThisBookBelongsTo}
+          onChange={this.movingBookToAnotherShelf}
+        >
           <option value="move" disabled>
             Move to...
           </option>

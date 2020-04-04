@@ -15,8 +15,20 @@ class BooksApp extends React.Component {
     bookShelves: {
       "Currently Reading": [],
       "Want To Read": [],
-      Read: []
-    }
+      Read: [],
+    },
+  };
+
+  /*
+   * When the user decides to move the book to another shelf, this funtion will
+   * update the the book's shelf and will re-render all the shelves again.
+   */
+  handleMovingBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(books => {
+      BooksAPI.getAll().then(books => {
+        this.organizeBooks(books);
+      });
+    });
   };
 
   // Makes sure that the books are being stored and component re-renders
@@ -26,8 +38,8 @@ class BooksApp extends React.Component {
       bookShelves: {
         "Currently Reading": currentlyReading,
         "Want To Read": wantToRead,
-        Read: read
-      }
+        Read: read,
+      },
     });
   };
 
@@ -36,7 +48,7 @@ class BooksApp extends React.Component {
     const bookShelves = {
       currentlyReading: [],
       wantToRead: [],
-      read: []
+      read: [],
     };
     books.forEach(book => bookShelves[book.shelf].push(book));
 
@@ -87,6 +99,7 @@ class BooksApp extends React.Component {
                     key={bookShelf[0]}
                     bookShelfName={bookShelf[0]}
                     books={bookShelf[1]}
+                    handleMovingBook={this.handleMovingBook}
                   />
                 ))}
               </div>
